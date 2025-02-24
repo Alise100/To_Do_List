@@ -8,11 +8,11 @@ public class ToDoApp {
 
     private JFrame frame;
     private JTextField taskField;
-    private JPanel taskPanel; // Панель для отображения задач
+    private JPanel taskPanel;
     private DBLogic db;
 
     public ToDoApp() {
-        db = new DBLogic(); // Используем ваш существующий класс DBLogic
+        db = new DBLogic();
         initializeUI();
     }
 
@@ -29,9 +29,9 @@ public class ToDoApp {
         addButton.addActionListener(e -> addTask());
         frame.add(addButton, BorderLayout.SOUTH);
 
-        // Панель для отображения задач
+
         taskPanel = new JPanel();
-        taskPanel.setLayout(new BoxLayout(taskPanel, BoxLayout.Y_AXIS)); // Вертикальное расположение
+        taskPanel.setLayout(new BoxLayout(taskPanel, BoxLayout.Y_AXIS));
         frame.add(new JScrollPane(taskPanel), BorderLayout.CENTER);
 
         loadTasks();
@@ -42,43 +42,43 @@ public class ToDoApp {
         String task = taskField.getText().trim();
 
         if (!task.isEmpty()) {
-            db.addTask(task); // Используем метод addTask из DBLogic
-            addTaskToPanel(task); // Добавляем задачу на панель
+            db.addTask(task);
+            addTaskToPanel(task);
             taskField.setText("");
         }
     }
 
     private void addTaskToPanel(String task) {
-        // Создаем панель для одной задачи
+
         JPanel singleTaskPanel = new JPanel(new BorderLayout());
 
-        // Добавляем текст задачи
+
         JLabel taskLabel = new JLabel(task);
         singleTaskPanel.add(taskLabel, BorderLayout.CENTER);
 
-        // Добавляем кнопку удаления
+
         JButton deleteButton = new JButton("Delete");
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                db.deleteTask(task); // Удаляем задачу из базы данных
-                taskPanel.remove(singleTaskPanel); // Удаляем задачу с панели
-                taskPanel.revalidate(); // Обновляем панель
-                taskPanel.repaint(); // Перерисовываем панель
+                db.deleteTask(task);
+                taskPanel.remove(singleTaskPanel);
+                taskPanel.revalidate();
+                taskPanel.repaint();
             }
         });
         singleTaskPanel.add(deleteButton, BorderLayout.EAST);
 
-        // Добавляем задачу на основную панель
+
         taskPanel.add(singleTaskPanel);
-        taskPanel.revalidate(); // Обновляем панель
-        taskPanel.repaint(); // Перерисовываем панель
+        taskPanel.revalidate();
+        taskPanel.repaint();
     }
 
     private void loadTasks() {
-        List<String> tasks = db.getTasks(); // Используем метод getTasks из DBLogic
+        List<String> tasks = db.getTasks();
         for (String task : tasks) {
-            addTaskToPanel(task); // Добавляем каждую задачу на панель
+            addTaskToPanel(task);
         }
     }
 

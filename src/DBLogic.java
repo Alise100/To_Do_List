@@ -49,10 +49,10 @@ public class DBLogic extends DBConnection {
         return  tasks;
     }
     public void deleteTask(String task) {
-        String sql = "DELETE FROM tasks WHERE task = ?"; // Пример SQL-запроса
+        String sql = "DELETE FROM tasks WHERE task = ?";
         try (PreparedStatement statement = DBConnection.prepareStatement(sql)) {
             statement.setString(1, task);
-            statement.executeUpdate(); // Выполняем запрос на удаление
+            statement.executeUpdate(); 
         } catch (SQLException e) {
             e.printStackTrace();
         }
